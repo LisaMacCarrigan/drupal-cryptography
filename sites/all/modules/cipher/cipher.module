@@ -1,0 +1,19 @@
+<?php
+
+function cipher_menu() {
+    $items = array();
+    $items['cipher_ui'] = array(
+        'title' => 'Custom Shift Cipher Module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('input_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['cipher_result_page'] = array(
+        'title' => 'Check Out the Encrypted Phrase!',
+        'page callback' => 'display_result',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
