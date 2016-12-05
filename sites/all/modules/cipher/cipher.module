@@ -17,3 +17,40 @@ function cipher_menu() {
     );
     return $items;
 }
+
+function input_form() {
+    $form['shift_value'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Shift value',
+        '#description' => 'A shift value is the number of places to shift each letter over.',
+        '#element_validate' => array('element_validate_integer_positive'),
+        '#required' => TRUE,
+        '#attributes' => array(
+            'placeholder' => t('Enter a number'),
+        ),
+
+    );
+    $form['shift_direction'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Shift direction',
+        '#description' => 'Example: "right" or "left".',
+        '#required' => TRUE,
+        '#attributes' => array(
+            'placeholder' => t('Enter a shift direction'),
+        ),
+    );
+    $form['input_phrase'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Phrase',
+        '#required' => TRUE,
+        '#attributes' => array(
+            'placeholder' => t('Enter a phrase to encrypt'),
+        ),
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Encrypt!',
+    );
+
+    return $form;
+}
