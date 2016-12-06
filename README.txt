@@ -32,7 +32,7 @@ Be sure to validate all input before calculating the result. Here are the valida
 
 -(DONE) The shift value must be a positive integer al
 -(DONE) The shift direction must be either "left" or "right".
--The only special characters that should be allowed in your input phrase are spaces and punctuation.
+-(DONE) The only special characters that should be allowed in your input phrase are spaces and punctuation.
 
 Further Exploration:
 
@@ -54,3 +54,6 @@ Here are the objectives the teacher will use to review your code with you:
 -Does the project demonstrate an understanding of this week's concepts? If prompted, can you discuss your code with an instructor using the correct terminology?
 -Is the project in a polished, portfolio-quality state?
 -Was the required functionality in place before the 5:00pm Friday deadline?
+
+Regular Expressions: https://regex101.com/
+Unicode: https://en.wikipedia.org/wiki/List_of_Unicode_characters

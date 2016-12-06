@@ -71,11 +71,15 @@ function element_validate_direction($element) {
 }
 
 function element_validate_phrase($element) {
-    $array_of_words = explode(" ", $element['#value']);
+    $valid = '/[[:alpha:](.|,|;|:|?|!|"|\'|\s)]+/i'; //tested on regex101.com
 
-    echo '<pre>';
-    var_dump($array_of_words);
-    echo '</pre>';
-    exit;
+    if (!preg_match_all($valid, $element['#value'])) {
+        form_error($element, t('The only special characters permitted are spaces and punctuation.'));
+    }
+
+    // echo '<pre>';
+    // var_dump($array_of_words);
+    // echo '</pre>';
+    // exit;
 
 }
