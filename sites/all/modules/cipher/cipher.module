@@ -1,4 +1,5 @@
 <?php
+// date_default_timezone_set('America/New_York');
 
 function cipher_menu() {
     $items = array();
@@ -33,7 +34,9 @@ function input_form() {
     $form['shift_direction'] = array(
         '#type' => 'textfield',
         '#title' => 'Shift direction',
-        '#description' => 'Example: "right" or "left".',
+        '#description' => 'Ex: "Right" or "Left".',
+        '#element_validate' => array('element_validate_direction'),
+        // http://php.net/manual/en/function.ctype-alpha.php
         '#required' => TRUE,
         '#attributes' => array(
             'placeholder' => t('Enter a shift direction'),
@@ -43,6 +46,7 @@ function input_form() {
         '#type' => 'textfield',
         '#title' => 'Phrase',
         '#required' => TRUE,
+        '#element_validate' => array('element_validate_phrase'),
         '#attributes' => array(
             'placeholder' => t('Enter a phrase to encrypt'),
         ),
@@ -53,4 +57,25 @@ function input_form() {
     );
 
     return $form;
+}
+
+// ============================= Form Validation ============================= //
+
+function element_validate_direction($element) {
+    $input_direction = strtoupper($element['#value']);
+    $valid_directions = array('RIGHT', 'LEFT');
+
+    if (!in_array($input_direction, $valid_directions, TRUE)) {
+        form_error($element, t('Direction must either be "Left" or "Right".'));
+    }
+}
+
+function element_validate_phrase($element) {
+    $array_of_words = explode(" ", $element['#value']);
+
+    echo '<pre>';
+    var_dump($array_of_words);
+    echo '</pre>';
+    exit;
+
 }

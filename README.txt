@@ -30,8 +30,8 @@ Output:
 -Your final result should be in all lowercase.
 Be sure to validate all input before calculating the result. Here are the validation rules:
 
--The shift value must be a positive integer
--The shift direction must be either "left" or "right".
+-(DONE) The shift value must be a positive integer al
+-(DONE) The shift direction must be either "left" or "right".
 -The only special characters that should be allowed in your input phrase are spaces and punctuation.
 
 Further Exploration:
