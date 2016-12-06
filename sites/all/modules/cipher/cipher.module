@@ -98,9 +98,9 @@ function element_validate_direction($element) {
 }
 
 function element_validate_phrase($element) {
-    $valid = '/[[:alpha:](.|,|;|:|?|!|"|\'|\s)]+/i'; //tested on regex101.com
+    $valid = '/^[[:alpha:](.|,|;|:|?|!|"|\'|\s)]+$/i'; //tested on regex101.com
 
-    if (!preg_match_all($valid, $element['#value'])) {
+    if (!preg_match($valid, $element['#value'])) {
         form_error($element, t('The only special characters permitted are spaces and punctuation.'));
     }
 
