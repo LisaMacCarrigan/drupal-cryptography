@@ -3,7 +3,7 @@
 
 function cipher_menu() {
     $items = array();
-    $items['cipher_ui'] = array(
+    $items['cipher'] = array(
         'title' => 'Custom Shift Cipher Module',
         'page callback' => 'drupal_get_form',
         'page arguments' => array('input_form'),
@@ -62,9 +62,13 @@ function input_form() {
 function input_form_submit($form, &$form_state) {
     $shift_value = (int)$form_state['values']['shift_value'];
     $shift_direction = $form_state['values']['shift_direction'];
-    $input_phrase = $form_state['values']['input_phrase'];
+    $phrase = strtolower(($form_state['values']['input_phrase']));
+    $split_phrase = str_split($phrase);
+    $user_input = array($shift_value, $shift_direction, $phrase);
 
-    $user_input = array($shift_value, $shift_direction, $input_phrase);
+    // add logic to handle if direction is right or left
+
+
     $_SESSION['user_input'] = $user_input;
     $form_state['redirect'] = 'cipher_result_page';
 }
@@ -87,6 +91,7 @@ function element_validate_direction($element) {
     $input_direction = strtoupper($element['#value']);
     $valid_directions = array('RIGHT', 'LEFT');
 
+    // ** need to improve because it is not yet one hundred percent effective **
     if (!in_array($input_direction, $valid_directions, TRUE)) {
         form_error($element, t('Direction must either be "Left" or "Right".'));
     }
