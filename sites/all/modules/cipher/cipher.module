@@ -59,6 +59,28 @@ function input_form() {
     return $form;
 }
 
+function input_form_submit($form, &$form_state) {
+    $shift_value = (int)$form_state['values']['shift_value'];
+    $shift_direction = $form_state['values']['shift_direction'];
+    $input_phrase = $form_state['values']['input_phrase'];
+
+    $user_input = array($shift_value, $shift_direction, $input_phrase);
+    $_SESSION['user_input'] = $user_input;
+    $form_state['redirect'] = 'cipher_result_page';
+}
+
+function display_result() {
+    $shift_value = $_SESSION['user_input'][0];
+    $shift_direction = $_SESSION['user_input'][1];
+    $phrase = $_SESSION['user_input'][2];
+
+    // temporary test display
+    return  '<h3>Shift Value: </h3>' . $shift_value .
+            '<h3>Shift Direction: </h3>' . $shift_direction .
+            '<h3>Phrase: </h3>' . $phrase;
+
+}
+
 // ============================= Form Validation ============================= //
 
 function element_validate_direction($element) {
@@ -77,9 +99,9 @@ function element_validate_phrase($element) {
         form_error($element, t('The only special characters permitted are spaces and punctuation.'));
     }
 
-    // echo '<pre>';
-    // var_dump($array_of_words);
-    // echo '</pre>';
-    // exit;
-
 }
+
+// echo '<pre>';
+// var_dump($thing_of_interest);
+// echo '</pre>';
+// exit;
