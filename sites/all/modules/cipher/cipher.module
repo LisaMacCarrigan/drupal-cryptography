@@ -59,14 +59,36 @@ function input_form() {
     return $form;
 }
 
+function encrypt_phrase($input_shift, $input_direction, $input_split_phrase) {
+    $encrypted_phrase = array();
+
+    if ($input_shift === 'RIGHT') {
+        foreach($input_split_phrase as $char) {
+            if(regular expression a-z) {
+                $new_ascii = ord($char) + $shift
+                if($new_ascii > 122) {
+                    implement a wrap around;
+                } else (
+                    push the $new_ascii to encrypted_phrase array;
+                )
+            } else {
+                push this $char to array;
+            }
+            return $encrypted_phrase;
+        }
+    } else { // handle LEFT
+
+    }
+}
+
 function input_form_submit($form, &$form_state) {
     $shift_value = (int)$form_state['values']['shift_value'];
-    $shift_direction = $form_state['values']['shift_direction'];
+    $shift_direction = strtoupper($form_state['values']['shift_direction']);
     $phrase = strtolower(($form_state['values']['input_phrase']));
     $split_phrase = str_split($phrase);
     $user_input = array($shift_value, $shift_direction, $phrase);
 
-    // add logic to handle if direction is right or left
+    $result = encrypt_phrase($shift_value, $shift_direction, $split_phrase);
 
 
     $_SESSION['user_input'] = $user_input;
