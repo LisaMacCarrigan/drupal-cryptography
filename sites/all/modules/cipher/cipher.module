@@ -65,8 +65,8 @@ function encrypt_phrase($input_shift, $input_direction, $input_split_phrase) {
     if ($input_direction === 'RIGHT') {
         foreach($input_split_phrase as $char) {
             if(preg_match('/^[a-z]+$/', $char)) {
-                $shifted = ord($char) + $input_shift;
-                $new_char = chr($shifted % 26);
+                $shifted = ord($char) + ($input_shift % 26);
+                $new_char = chr($shifted); // resolve this
                 array_push($encrypted_phrase, $new_char);
             } else {
                 array_push($encrypted_phrase, $char);
