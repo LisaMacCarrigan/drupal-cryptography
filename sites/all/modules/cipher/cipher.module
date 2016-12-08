@@ -65,7 +65,7 @@ function encrypt_phrase($input_shift, $input_direction, $input_split_phrase) {
     if ($input_direction === 'RIGHT') {
         foreach($input_split_phrase as $char) {
             if(preg_match('/^[a-z]+$/', $char)) {
-                $shifted = (int)ord($char) + $input_shift;
+                $shifted = ord($char) + $input_shift;
                 $new_char = chr($shifted % 26);
                 array_push($encrypted_phrase, $new_char);
             } else {
@@ -75,6 +75,15 @@ function encrypt_phrase($input_shift, $input_direction, $input_split_phrase) {
         return $encrypted_phrase;
     }
 }
+// ASCII Code a-z --> 97-122 //
+
+// USE CASES //
+
+// a shift right 1
+// z shift right 1
+// a shift left 1
+// z shift left 1
+
 
 function input_form_submit($form, &$form_state) {
     $shift_value = (int)$form_state['values']['shift_value'];
