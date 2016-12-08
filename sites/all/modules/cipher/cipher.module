@@ -62,22 +62,17 @@ function input_form() {
 function encrypt_phrase($input_shift, $input_direction, $input_split_phrase) {
     $encrypted_phrase = array();
 
-    if ($input_shift === 'RIGHT') {
+    if ($input_direction === 'RIGHT') {
         foreach($input_split_phrase as $char) {
-            if(regular expression a-z) {
-                $new_ascii = ord($char) + $shift
-                if($new_ascii > 122) {
-                    implement a wrap around;
-                } else (
-                    push the $new_ascii to encrypted_phrase array;
-                )
+            if(preg_match('/^[a-z]+$/', $char)) {
+                $shifted = (int)ord($char) + $input_shift;
+                $new_char = chr($shifted % 26);
+                array_push($encrypted_phrase, $new_char);
             } else {
-                push this $char to array;
+                array_push($encrypted_phrase, $char);
             }
-            return $encrypted_phrase;
         }
-    } else { // handle LEFT
-
+        return $encrypted_phrase;
     }
 }
 
@@ -88,20 +83,23 @@ function input_form_submit($form, &$form_state) {
     $split_phrase = str_split($phrase);
     $user_input = array($shift_value, $shift_direction, $phrase);
 
-    $result = encrypt_phrase($shift_value, $shift_direction, $split_phrase);
-
+    $encryped_phrase = encrypt_phrase($shift_value, $shift_direction, $split_phrase);
+    $result = implode($encryped_phrase);
 
     $_SESSION['user_input'] = $user_input;
+    $_SESSION['result'] = $result;
     $form_state['redirect'] = 'cipher_result_page';
 }
 
 function display_result() {
+    $result = $_SESSION['result'];
     $shift_value = $_SESSION['user_input'][0];
     $shift_direction = $_SESSION['user_input'][1];
     $phrase = $_SESSION['user_input'][2];
 
     // temporary test display
-    return  '<h3>Shift Value: </h3>' . $shift_value .
+    return  '<h3>Result: </h3>' . $result .
+            '<h3>Shift Value: </h3>' . $shift_value .
             '<h3>Shift Direction: </h3>' . $shift_direction .
             '<h3>Phrase: </h3>' . $phrase;
 
