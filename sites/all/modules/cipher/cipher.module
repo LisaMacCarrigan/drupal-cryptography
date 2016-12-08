@@ -1,5 +1,4 @@
 <?php
-// date_default_timezone_set('America/New_York');
 
 function cipher_menu() {
     $items = array();
@@ -66,10 +65,32 @@ function encrypt_phrase($input_shift, $input_direction, $input_split_phrase) {
         foreach($input_split_phrase as $char) {
             if(preg_match('/^[a-z]+$/', $char)) {
                 $shifted = ord($char) + ($input_shift % 26);
-                $new_char = chr($shifted); // resolve this
-                array_push($encrypted_phrase, $new_char);
+                if($shifted > 122) {
+                    $new_char = chr($shifted - 26);
+                    $encrypted_phrase[] = $new_char;
+                } else {
+                    $new_char = chr($shifted);
+                    $encrypted_phrase[] = $new_char;
+                }
             } else {
-                array_push($encrypted_phrase, $char);
+                $encrypted_phrase[] = $char;
+            }
+        }
+        return $encrypted_phrase;
+
+    } else {
+        foreach($input_split_phrase as $char) {
+            if(preg_match('/^[a-z]+$/', $char)) {
+                $shifted = ord($char) - ($input_shift % 26);
+                if($shifted < 97) {
+                    $new_char = chr($shifted + 26);
+                    $encrypted_phrase[] = $new_char;
+                } else {
+                    $new_char = chr($shifted);
+                    $encrypted_phrase[] = $new_char;
+                }
+            } else {
+                $encrypted_phrase[] = $char;
             }
         }
         return $encrypted_phrase;
@@ -107,10 +128,10 @@ function display_result() {
     $phrase = $_SESSION['user_input'][2];
 
     // temporary test display
-    return  '<h3>Result: </h3>' . $result .
+    return  '<h3>Encrypted Phrase: </h3>' . $result .
+            '<h3>Original Phrase: </h3>' . $phrase .
             '<h3>Shift Value: </h3>' . $shift_value .
-            '<h3>Shift Direction: </h3>' . $shift_direction .
-            '<h3>Phrase: </h3>' . $phrase;
+            '<h3>Shift Direction: </h3>' . $shift_direction;
 
 }
 
